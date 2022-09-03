@@ -1,0 +1,19 @@
+.header {
+   background-color: #1E1E26;
+   padding: 14px 18px;
+
+   &__navigation {
+    display: flex;
+    justify-content: space-between;
+
+    &__logo {
+        color: #FE4C50;
+        font-size: 1.2rem;
+    }
+
+    &__link {
+        margin-left: 10px;
+        color: #b5aec4;
+    }
+   }
+}

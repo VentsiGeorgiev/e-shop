@@ -1,0 +1,13 @@
+@import './reset.scss';
+@import './variables.scss';
+
+body {
+    font-family: $open-sans-font;
+}
+
+.container {
+    width: 100%;
+    min-width: 280px;
+    max-width: 1440px;
+    margin: 0 auto;
+}
