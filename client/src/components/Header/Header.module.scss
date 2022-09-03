@@ -1,6 +1,7 @@
 .header {
    background-color: #1E1E26;
    padding: 14px 18px;
+   margin-bottom: 24px;
 
    &__navigation {
     display: flex;
@@ -9,6 +10,7 @@
     &__logo {
         color: #FE4C50;
         font-size: 1.2rem;
+        font-weight: 800;
     }
 
     &__link {

@@ -4,7 +4,6 @@ import { BsStar } from 'react-icons/bs';
 import style from './Rating.module.scss';
 
 function Rating({ value, reviewsCount }) {
-    const startConut = [1, 2, 3, 4, 5];
 
     return (
         <div>
