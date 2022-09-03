@@ -3,7 +3,7 @@ import { BsStarHalf } from 'react-icons/bs';
 import { BsStar } from 'react-icons/bs';
 import style from './Rating.module.scss';
 
-function Rating({ value, reviewsCount }) {
+function Rating({ value, numReviews }) {
 
     return (
         <div>
@@ -52,7 +52,7 @@ function Rating({ value, reviewsCount }) {
                         }
                     </li>
 
-                    <span> {reviewsCount && reviewsCount} Reviews</span>
+                    <span> {numReviews && numReviews} Reviews</span>
                 </ul>
             </span>
         </div>
