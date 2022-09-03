@@ -9,7 +9,7 @@ function Home() {
             <h2>Latest Products</h2>
             <section className={style.products}>
                 {products.map((product) => (
-                    <Product product={product} />
+                    <Product key={product._id} product={product} />
                 ))}
             </section>
 
