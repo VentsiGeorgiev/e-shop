@@ -1,21 +1,29 @@
 import Product from '../../components/Product/Product.js';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import style from './Home.module.scss';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getProducts, reset } from '../../features/product/productSlice';
 
 function Home() {
 
-    const [products, setProducts] = useState([]);
+    const { products, isLoading, isSuccess } = useSelector((state) => state.products);
+    const dispatch = useDispatch();
 
     useEffect(() => {
 
-        const fetchProducts = async () => {
-            const res = await fetch('/api/products');
-            const data = await res.json();
-            setProducts(data);
+        dispatch(getProducts());
+        return () => {
+            if (isSuccess) {
+                dispatch(reset());
+            }
         };
-        fetchProducts();
 
-    }, []);
+    }, [dispatch, isSuccess]);
+
+    if (isLoading) {
+        return <h3>Loading...</h3>;
+    }
 
     return (
         <section>
