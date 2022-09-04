@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('./middleware/cors');
 const dotenv = require('dotenv').config();
 const connectDB = require('./config/db');
+const { notFound, errorHandler } = require('./middleware/error');
 const PORT = process.env.PORT || 5000;
 
 // Connect to database
@@ -19,5 +20,8 @@ app.use(cors());
 
 // Routes
 app.use('/api/products', require('./routes/products'));
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
