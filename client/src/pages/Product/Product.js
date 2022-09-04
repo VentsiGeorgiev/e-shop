@@ -1,14 +1,25 @@
-import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import BackButton from '../../components/BackButton/BackButton';
 import Rating from '../../components/Rating/Rating';
-import products from '../../data/products';
+// import products from '../../data/products';
 
 
 function Product() {
     const params = useParams();
-    const product = products.find((p) => p._id === params.id);
+    const id = params.id;
+    const [product, setProduct] = useState({});
 
-    console.log(product.image);
+    useEffect(() => {
+
+        const fetchProducts = async () => {
+            const res = await fetch(`/api/products/${id}`);
+            const data = await res.json();
+            setProduct(data);
+        };
+        fetchProducts();
+
+    }, []);
 
 
     return (
