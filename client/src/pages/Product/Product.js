@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import BackButton from '../../components/BackButton/BackButton';
 import Rating from '../../components/Rating/Rating';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,11 +9,14 @@ import Message from '../../components/Message/Message';
 
 
 function Product() {
-    const params = useParams();
-    const id = params.id;
+    const [quantity, setQuantity] = useState(0);
 
     const { product, isLoading, isSuccess, isError, message } = useSelector((state) => state.products);
+
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const params = useParams();
+    const id = params.id;
 
 
     useEffect(() => {
@@ -33,6 +36,10 @@ function Product() {
         return <Spinner />;
     }
 
+    const addToCardHandler = () => {
+        navigate(`/cart/${id}?qty=${quantity}`);
+    };
+
     return (
         <section>
             {isError && <Message text={message} />}
@@ -46,7 +53,24 @@ function Product() {
                 <h3>Price: {product.price}</h3>
                 <p>Description: {product.description}</p>
                 <p>{product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}</p>
-                <button disabled={product.countInStock === 0}  >Add To Card</button>
+
+                {product.countInStock > 0 && (
+                    <div>
+                        <p>Quantity</p>
+                        <select value={quantity} onChange={(e) => setQuantity(e.target.value)}>
+                            {[...Array(product.countInStock).keys()]
+                                .map(x => (<option key={x + 1} value={x + 1}>{x + 1}</option>))
+                            }
+                        </select>
+                    </div>
+                )}
+
+                <button
+                    onClick={addToCardHandler}
+                    disabled={product.countInStock === 0}
+                >
+                    Add To Card
+                </button>
             </div>
 
         </section>
