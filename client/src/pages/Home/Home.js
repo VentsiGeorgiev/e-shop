@@ -4,6 +4,7 @@ import style from './Home.module.scss';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts, reset } from '../../features/product/productSlice';
+import Spinner from '../../components/Spinner/Spinner.js';
 
 function Home() {
 
@@ -22,7 +23,7 @@ function Home() {
     }, [dispatch, isSuccess]);
 
     if (isLoading) {
-        return <h3>Loading...</h3>;
+        return <Spinner />;
     }
 
     return (
