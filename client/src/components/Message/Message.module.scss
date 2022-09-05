@@ -1,0 +1,22 @@
+.message {
+    right: 20px;
+    background-color: #c0c0c0;
+    padding: 10px;
+    color: #000;
+    animation: fadeOut 8s linear forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        }
+
+    100% {
+        opacity: 0;
+     }
+}
+
+  
+
+
+

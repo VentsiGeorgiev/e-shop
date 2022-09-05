@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BackButton from '../../components/BackButton/BackButton';
 import Rating from '../../components/Rating/Rating';
-// import products from '../../data/products';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProduct, reset } from '../../features/product/productSlice';
 
@@ -27,12 +26,6 @@ function Product() {
 
 
     }, [dispatch, isSuccess, id]);
-
-
-    if (isLoading) {
-        return <h3>Loading...</h3>;
-    }
-
 
     return (
         <section>
