@@ -4,7 +4,7 @@ import Rating from '../Rating/Rating';
 function Product({ product }) {
     return (
         <section>
-            <Link to={`/product/${product._id}`}>
+            <Link to={`/products/${product._id}`}>
                 <div>
                     <img src={product.image} alt={product.name} height={240} width={250} />
                     <h3>{product.name}</h3>

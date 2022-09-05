@@ -4,13 +4,19 @@ const getProducts = async () => {
     const response = await fetch(API_URL);
     const data = await response.json();
 
-    console.log('DATA ---- DATA ---- DATA');
-    console.log(data);
+    return data;
+};
+
+const getProduct = async (id) => {
+    const response = await fetch(`${API_URL}/${id}`);
+    const data = await response.json();
+
     return data;
 };
 
 const productService = {
-    getProducts
+    getProducts,
+    getProduct
 };
 
 export default productService;

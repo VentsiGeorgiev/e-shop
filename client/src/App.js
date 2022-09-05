@@ -10,7 +10,7 @@ function App() {
       <main className='container'>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/product/:id' element={<Product />} />
+          <Route path='/products/:id' element={<Product />} />
         </Routes>
 
       </main>

@@ -3,33 +3,45 @@ import { useParams } from 'react-router-dom';
 import BackButton from '../../components/BackButton/BackButton';
 import Rating from '../../components/Rating/Rating';
 // import products from '../../data/products';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProduct, reset } from '../../features/product/productSlice';
 
 
 function Product() {
     const params = useParams();
     const id = params.id;
-    const [product, setProduct] = useState({});
+
+    const { product, isLoading, isSuccess } = useSelector((state) => state.products);
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
 
-        const fetchProducts = async () => {
-            const res = await fetch(`/api/products/${id}`);
-            const data = await res.json();
-            setProduct(data);
-        };
-        fetchProducts();
+        dispatch(getProduct(id));
 
-    }, []);
+        return () => {
+            if (isSuccess) {
+                dispatch(reset());
+            }
+        };
+
+
+    }, [dispatch, isSuccess, id]);
+
+
+    if (isLoading) {
+        return <h3>Loading...</h3>;
+    }
 
 
     return (
         <section>
             <BackButton />
-            <h1>Product </h1>
+            <h1>Product 2</h1>
 
             <div>
                 <img src={product.image} alt={product.name} height={400} width={500} />
-                <h2>{product.name}</h2>
+                <h2>{product.brand}</h2>
                 <Rating value={product.rating} numReviews={product.numReviews} />
                 <h3>Price: {product.price}</h3>
                 <p>Description: {product.description}</p>
