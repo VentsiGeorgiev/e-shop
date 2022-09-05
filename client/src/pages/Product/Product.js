@@ -4,13 +4,15 @@ import BackButton from '../../components/BackButton/BackButton';
 import Rating from '../../components/Rating/Rating';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProduct, reset } from '../../features/product/productSlice';
+import Spinner from '../../components/Spinner/Spinner';
+import Message from '../../components/Message/Message';
 
 
 function Product() {
     const params = useParams();
     const id = params.id;
 
-    const { product, isLoading, isSuccess } = useSelector((state) => state.products);
+    const { product, isLoading, isSuccess, isError, message } = useSelector((state) => state.products);
     const dispatch = useDispatch();
 
 
@@ -27,8 +29,13 @@ function Product() {
 
     }, [dispatch, isSuccess, id]);
 
+    if (isLoading) {
+        return <Spinner />;
+    }
+
     return (
         <section>
+            {isError && <Message text={message} />}
             <BackButton />
             <h1>Product 2</h1>
 
