@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import BackButton from '../../components/BackButton/BackButton';
 import Spinner from '../../components/Spinner/Spinner';
-import { addToCart, reset } from '../../features/cart/cartSlice';
+import { addToCart, removeFromCart } from '../../features/cart/cartSlice';
 
 function Cart() {
 
@@ -35,7 +35,8 @@ function Cart() {
         dispatch(addToCart(itemAndQty));
     };
     const removeFromCartHandler = (id) => {
-        console.log(id);
+        dispatch(removeFromCart(id));
+
     };
 
     const checkoutHandler = () => {
@@ -82,29 +83,30 @@ function Cart() {
                 )
             }
 
-            <section>
-                <div>
-                    <h3>Total products: {cartItems.reduce((acc, curr) => acc + curr.qty, 0)}</h3>
-                    <h3>Total price:
-                        {cartItems
-                            .reduce((acc, curr) => acc + curr.qty * curr.price, 0)
-                            .toFixed(2)
-                        }
-                    </h3>
-                </div>
+            {cartItems.length >= 1 && (
+                <section>
+                    <div>
+                        <h3>Total products: {cartItems.reduce((acc, curr) => acc + curr.qty, 0)}</h3>
+                        <h3>Total price:
+                            {cartItems
+                                .reduce((acc, curr) => acc + curr.qty * curr.price, 0)
+                                .toFixed(2)
+                            }
+                        </h3>
+                    </div>
 
-                <div>
-                    <button
-                        type='button'
-                        disabled={cartItems.length === 0}
-                        onClick={checkoutHandler}
-                    >
-                        Proceed To Ckeckout
-                    </button>
-                </div>
+                    <div>
+                        <button
+                            type='button'
+                            disabled={cartItems.length === 0}
+                            onClick={checkoutHandler}
+                        >
+                            Proceed To Ckeckout
+                        </button>
+                    </div>
+                </section>
+            )}
 
-
-            </section>
 
         </section>
 
