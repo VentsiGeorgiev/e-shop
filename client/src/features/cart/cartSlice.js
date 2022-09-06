@@ -41,12 +41,21 @@ export const productSlice = createSlice({
                 state.product = action.payload;
                 const item = action.payload;
 
-                const existing = state.cartItems.find(x => x._id === item._id);
+                const product = {
+                    product: item._id,
+                    name: item.brand,
+                    image: item.image,
+                    price: item.price,
+                    countInStock: item.countInStock,
+                    qty: item.qty,
+                };
+
+                const existing = state.cartItems.find(x => x.product === item._id);
 
                 if (existing) {
-                    state.cartItems.map(x => x._id === item._id ? item : x);
+                    existing.qty = item.qty;
                 } else {
-                    state.cartItems.push(item);
+                    state.cartItems.push(product);
                 }
 
 
