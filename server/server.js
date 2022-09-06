@@ -20,6 +20,7 @@ app.use(cors());
 
 // Routes
 app.use('/api/products', require('./routes/products'));
+app.use('/api/users', require('./routes/user'));
 
 app.use(notFound);
 app.use(errorHandler);
