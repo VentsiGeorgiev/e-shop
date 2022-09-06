@@ -9,7 +9,7 @@ import Message from '../../components/Message/Message';
 
 
 function Product() {
-    const [quantity, setQuantity] = useState(0);
+    const [qty, setQty] = useState(1);
 
     const { product, isLoading, isSuccess, isError, message } = useSelector((state) => state.products);
 
@@ -23,11 +23,11 @@ function Product() {
 
         dispatch(getProduct(id));
 
-        return () => {
-            if (isSuccess) {
-                dispatch(reset());
-            }
-        };
+        // return () => {
+        //     if (isSuccess) {
+        //         dispatch(reset());
+        //     }
+        // };
 
 
     }, [dispatch, isSuccess, id]);
@@ -37,7 +37,7 @@ function Product() {
     }
 
     const addToCardHandler = () => {
-        navigate(`/cart/${id}?qty=${quantity}`);
+        navigate(`/cart/${id}?qty=${qty}`);
     };
 
     return (
@@ -57,7 +57,7 @@ function Product() {
                 {product.countInStock > 0 && (
                     <div>
                         <p>Quantity</p>
-                        <select value={quantity} onChange={(e) => setQuantity(e.target.value)}>
+                        <select value={qty} onChange={(e) => setQty(e.target.value)}>
                             {[...Array(product.countInStock).keys()]
                                 .map(x => (<option key={x + 1} value={x + 1}>{x + 1}</option>))
                             }
