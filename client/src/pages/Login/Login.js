@@ -1,5 +1,9 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, reset } from '../../features/auth/authSlice';
+import Message from '../../components/Message/Message';
+import Spinner from '../../components/Spinner/Spinner';
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -10,6 +14,18 @@ function Login() {
     });
 
     const { email, password } = formData;
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
+
+
+    useEffect(() => {
+        if (isSuccess || user) {
+            navigate('/');
+        }
+    }, [isSuccess, navigate, user]);
 
     const onChangeHandler = (e) => {
         setFormData((prevState) => ({
@@ -23,11 +39,23 @@ function Login() {
 
         // [TODO] Add validation 
 
+        const userData = {
+            email,
+            password
+        };
+
+        dispatch(login(userData));
+
 
     };
 
+    if (isLoading) {
+        return <Spinner />;
+    }
+
     return (
         <>
+            {isError && <Message text={message} />}
             <section>
                 <h2>Login</h2>
 
