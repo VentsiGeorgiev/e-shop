@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { register, reset } from '../../features/auth/authSlice';
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -10,6 +12,21 @@ function Register() {
     });
 
     const { name, email, password, repass } = formData;
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { user, isLoading, isError, isSuccess, message } = useSelector(state => state.auth);
+
+    useEffect(() => {
+
+        //  Redirect when logged in
+        if (isSuccess || user) {
+            navigate('/');
+        }
+
+        dispatch(reset());
+    }, [dispatch, isSuccess, navigate, user]);
 
     const onChangeHandler = (e) => {
         setFormData((prevState) => ({
@@ -22,6 +39,14 @@ function Register() {
         e.preventDefault();
 
         // [TODO] Add validation 
+
+        const userData = {
+            name,
+            email,
+            password
+        };
+
+        dispatch(register(userData));
 
     };
 
