@@ -108,6 +108,39 @@ const getUserProfile = async (req, res) => {
     }
 };
 
+// @desc   Update user profile
+// @route  PUT api/users/profile
+// @access Private
+
+const updateUserProfile = async (req, res) => {
+
+    try {
+
+        const user = await User.findById(req.user._id);
+
+        if (user) {
+            user.name = req.body.name || user.name;
+
+            const updatedUser = await user.save();
+
+            res.json({
+                _id: updatedUser._id,
+                name: updatedUser.name,
+            });
+        } else {
+            res.status(404);
+            throw new Error('User not found');
+        }
+
+
+
+    } catch (err) {
+        console.error(err);
+        res.status(404);
+        res.json({ message: err.message });
+    }
+};
+
 // Generate token
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -119,4 +152,5 @@ module.exports = {
     registerUser,
     loginUser,
     getUserProfile,
+    updateUserProfile
 };
