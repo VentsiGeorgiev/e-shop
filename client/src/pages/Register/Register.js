@@ -26,7 +26,7 @@ function Register() {
             navigate('/');
         }
 
-        dispatch(reset());
+        // dispatch(reset());
     }, [dispatch, isSuccess, navigate, user]);
 
     const onChangeHandler = (e) => {
