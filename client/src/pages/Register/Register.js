@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { register, reset } from '../../features/auth/authSlice';
+import Message from '../../components/Message/Message';
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -52,6 +53,8 @@ function Register() {
 
     return (
         <>
+            {isError && <Message text={message} />}
+
             <section>
                 <h2>Register</h2>
 

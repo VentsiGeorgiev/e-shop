@@ -1,22 +1,12 @@
+import { request, createOptions } from '../../hooks/useFetch';
 const API_URL = '/api/users';
 
 // Register user
 const register = async (userData) => {
-    const res = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-    });
 
-    const data = await res.json();
+    const result = await request(API_URL, createOptions('post', userData));
 
-    if (data) {
-        localStorage.setItem('user', JSON.stringify(data));
-    }
-
-    return data;
+    return result;
 
 };
 

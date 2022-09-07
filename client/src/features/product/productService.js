@@ -1,17 +1,19 @@
+import { request, createOptions } from '../../hooks/useFetch';
 const API_URL = '/api/products';
 
 const getProducts = async () => {
-    const response = await fetch(API_URL);
-    const data = await response.json();
+
+    const data = await request(API_URL, createOptions());
 
     return data;
 };
 
 const getProduct = async (id) => {
-    const response = await fetch(`${API_URL}/${id}`);
-    const data = await response.json();
+
+    const data = await request(`${API_URL}/${id}`);
 
     return data;
+
 };
 
 const productService = {
