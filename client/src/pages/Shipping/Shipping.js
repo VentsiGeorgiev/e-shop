@@ -1,15 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Checkout from '../../components/Checkout/Checkout';
 import { addShippingAddress } from '../../features/cart/cartSlice';
 
 function Shipping() {
 
     const { shippingAddress } = useSelector((state) => state.cart);
-
-    console.log('shippingAddress mf');
-    console.log(shippingAddress);
-    console.log('shippingAddress mf');
 
     const [address, setAddress] = useState(shippingAddress.address);
     const [city, setCity] = useState(shippingAddress.city);
@@ -37,6 +34,7 @@ function Shipping() {
 
     return (
         <>
+            <Checkout step1 step2 />
             <h1>Shipping</h1>
             <form onSubmit={onSubmitHandler}>
                 <div>
