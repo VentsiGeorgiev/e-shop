@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, reset } from '../../features/auth/authSlice';
 import Message from '../../components/Message/Message';
@@ -17,15 +17,17 @@ function Login() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
 
     const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
 
+    const path = searchParams.get('redirect');
 
     useEffect(() => {
         if (isSuccess || user) {
-            navigate('/');
+            path ? navigate(`/${path}`) : navigate('/');
         }
-    }, [isSuccess, navigate, user]);
+    }, [isSuccess, navigate, user, path]);
 
     const onChangeHandler = (e) => {
         setFormData((prevState) => ({

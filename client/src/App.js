@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useParams, useSearchParams } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Home from './pages/Home/Home';
 import Product from './pages/Product/Product';
@@ -7,6 +7,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Profile from './pages/Profile/Profile';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Shipping from './pages/Shipping/Shipping';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           <Route path='/sign-up' element={<Register />} />
           <Route path='/profile' element={<PrivateRoute />} >
             <Route path='/profile' element={<Profile />} />
+          </Route>
+          <Route path='/shipping' element={<PrivateRoute />} >
+            <Route path='/shipping' element={<Shipping />} />
           </Route>
 
         </Routes>

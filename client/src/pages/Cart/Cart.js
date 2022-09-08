@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import BackButton from '../../components/BackButton/BackButton';
 import Spinner from '../../components/Spinner/Spinner';
 import { addToCart, removeFromCart } from '../../features/cart/cartSlice';
+import { getUserData } from '../../utils/user';
 
 function Cart() {
 
@@ -12,6 +13,8 @@ function Cart() {
     const dispatch = useDispatch();
     const params = useParams();
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const user = getUserData();
 
     const id = params.id;
     const qty = Number(searchParams.get('qty'));
@@ -40,7 +43,8 @@ function Cart() {
     };
 
     const checkoutHandler = () => {
-        console.log('checkout');
+        user ? navigate('/shipping')
+            : navigate('/shipping?redirect=shipping');
     };
 
     return (
@@ -103,6 +107,7 @@ function Cart() {
                         >
                             Proceed To Ckeckout
                         </button>
+
                     </div>
                 </section>
             )}
