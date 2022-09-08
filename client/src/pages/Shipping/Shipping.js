@@ -1,21 +1,25 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { addShippingAddress } from '../../features/cart/cartSlice';
 
 function Shipping() {
-    const [formData, setFormData] = useState({
-        address: '',
-        city: '',
-        postalCode: '',
-        contry: '',
-    });
 
-    const { address, city, postalCode, contry } = formData;
+    const { shippingAddress } = useSelector((state) => state.cart);
 
-    const onChangeHandler = (e) => {
-        setFormData((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
-    };
+    console.log('shippingAddress mf');
+    console.log(shippingAddress);
+    console.log('shippingAddress mf');
+
+    const [address, setAddress] = useState(shippingAddress.address);
+    const [city, setCity] = useState(shippingAddress.city);
+    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
+    const [country, setCountry] = useState(shippingAddress.country);
+
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -23,9 +27,12 @@ function Shipping() {
             address,
             city,
             postalCode,
-            contry
+            country
         };
-        console.log(data);
+
+        dispatch(addShippingAddress(data));
+        navigate('/payment');
+
     };
 
     return (
@@ -38,7 +45,7 @@ function Shipping() {
                         id="address"
                         name="address"
                         value={address}
-                        onChange={onChangeHandler}
+                        onChange={(e) => setAddress(e.target.value)}
                         placeholder="Address"
                     />
                 </div>
@@ -48,7 +55,7 @@ function Shipping() {
                         id="city"
                         name="city"
                         value={city}
-                        onChange={onChangeHandler}
+                        onChange={(e) => setCity(e.target.value)}
                         placeholder="City"
                     />
                 </div>
@@ -58,7 +65,7 @@ function Shipping() {
                         id="postalCode"
                         name="postalCode"
                         value={postalCode}
-                        onChange={onChangeHandler}
+                        onChange={(e) => setPostalCode(e.target.value)}
                         placeholder="Postal code"
                     />
                 </div>
@@ -67,12 +74,12 @@ function Shipping() {
                         type="text"
                         id="contry"
                         name="contry"
-                        value={contry}
-                        onChange={onChangeHandler}
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
                         placeholder="Country"
                     />
                 </div>
-                <button>Submit</button>
+                <button>Continue</button>
             </form>
         </>
 

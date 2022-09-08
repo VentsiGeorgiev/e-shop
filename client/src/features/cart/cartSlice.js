@@ -1,8 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import cartService from './cartService';
 
+// Get shippingAddress from localStorage
+const address = JSON.parse(localStorage.getItem('shippingAddress'));
+
 const initialState = {
     cartItems: [],
+    shippingAddress: address ? address : {},
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -14,7 +18,7 @@ export const addToCart = createAsyncThunk(
     async (product, thunkAPI) => {
         try {
 
-            return await cartService.addToCart(product);
+            return cartService.addToCart(product);
         } catch (err) {
             const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
 
@@ -33,6 +37,14 @@ export const removeFromCart = createAsyncThunk(
 
             return thunkAPI.rejectWithValue(message);
         }
+    }
+);
+
+export const addShippingAddress = createAsyncThunk(
+    'cart/addShippingAddress',
+    (data, thunkAPI) => {
+        localStorage.setItem('shippingAddress', JSON.stringify(data));
+        return data;
     }
 );
 
@@ -97,6 +109,11 @@ export const productSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
                 state.product = null;
+            })
+            .addCase(addShippingAddress.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.shippingAddress = action.payload;
             });
     }
 });
