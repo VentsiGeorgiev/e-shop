@@ -48,6 +48,14 @@ export const addShippingAddress = createAsyncThunk(
     }
 );
 
+export const savePaymentMethod = createAsyncThunk(
+    'cart/savePaymentMethod',
+    (data, thunkAPI) => {
+        localStorage.setItem('paymentMethod', JSON.stringify(data));
+        return data;
+    }
+);
+
 
 export const productSlice = createSlice({
     name: 'cart',
@@ -114,6 +122,11 @@ export const productSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.shippingAddress = action.payload;
+            })
+            .addCase(savePaymentMethod.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.paymentMethod = action.payload;
             });
     }
 });
