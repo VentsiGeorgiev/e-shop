@@ -9,6 +9,7 @@ import Profile from './pages/Profile/Profile';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Shipping from './pages/Shipping/Shipping';
 import Payment from './pages/Payment/Payment';
+import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
           </Route>
           <Route path='/payment' element={<PrivateRoute />} >
             <Route path='/payment' element={<Payment />} />
+          </Route>
+          <Route path='/placeorder' element={<PrivateRoute />} >
+            <Route path='/placeorder' element={<PlaceOrder />} />
           </Route>
 
         </Routes>
