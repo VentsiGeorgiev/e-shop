@@ -30,10 +30,33 @@ const login = async (userData) => {
 // Logout
 const logout = () => localStorage.removeItem('user');
 
+// Update user
+const update = async (user) => {
+
+    const data = localStorage.getItem('user');
+    const userData = JSON.parse(data);
+    const token = userData.token;
+
+    const result = await fetch(`${API_URL}/profile`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(user)
+    });
+    const response = await result.json();
+
+    localStorage.setItem('user', JSON.stringify(response));
+
+    return response;
+};
+
 const authService = {
     register,
     logout,
-    login
+    login,
+    update,
 };
 
 export default authService;

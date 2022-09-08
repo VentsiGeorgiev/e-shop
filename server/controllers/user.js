@@ -126,6 +126,8 @@ const updateUserProfile = async (req, res) => {
             res.json({
                 _id: updatedUser._id,
                 name: updatedUser.name,
+                email: user.email,
+                token: generateToken(user._id)
             });
         } else {
             res.status(404);

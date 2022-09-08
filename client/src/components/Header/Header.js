@@ -30,11 +30,14 @@ function Header() {
                             <li>
                                 <NavLink className={styles.header__navigation__link} to='/cart'>Cart</NavLink>
                                 {user
-                                    ? (<button onClick={onLogout}>Logout</button>)
+                                    ? (
+                                        <>
+                                            <NavLink className={styles.header__navigation__link} to='/profile'>Profile</NavLink>
+                                            <button onClick={onLogout}>Logout</button>
+                                        </>
+                                    )
                                     : (<NavLink className={styles.header__navigation__link} to='/sign-in'>Sign In</NavLink>)
                                 }
-
-
 
                             </li>
                         </ul>
