@@ -1,3 +1,5 @@
+import { getToken } from "../utils/user";
+
 export async function request(url, options) {
 
     try {
@@ -26,6 +28,11 @@ export function createOptions(method = 'get', data) {
         method,
         headers: {}
     };
+
+    const token = getToken();
+    if (token !== null) {
+        options.headers.Authorization = `Bearer ${token}`;
+    }
 
 
     if (data !== undefined) {

@@ -34,21 +34,11 @@ const logout = () => localStorage.removeItem('user');
 // Update user
 const update = async (user) => {
 
-    const token = getToken();
+    const result = await request(`${API_URL}/profile`, createOptions('put', user));
 
-    const result = await fetch(`${API_URL}/profile`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(user)
-    });
-    const response = await result.json();
+    setUserData(result);
 
-    setUserData(response);
-
-    return response;
+    return result;
 };
 
 const authService = {
