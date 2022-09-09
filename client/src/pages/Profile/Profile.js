@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from '../../features/auth/authSlice';
 import { getUserOrders } from '../../features/order/orderSlice';
@@ -6,11 +7,7 @@ import { getUserOrders } from '../../features/order/orderSlice';
 function Profile() {
 
     const { user } = useSelector((state) => state.auth);
-    const { orders } = useSelector((state) => state.order);
-
-    console.log('orders');
-    console.log(orders);
-    console.log('orders');
+    const { userOrders } = useSelector((state) => state.order);
 
     const [changeDetails, setChangeDetails] = useState(false);
     const [updatedName, setupdatedName] = useState('');
@@ -19,7 +16,7 @@ function Profile() {
 
     useEffect(() => {
         dispatch(getUserOrders());
-    }, []);
+    }, [dispatch]);
 
 
     const onSubmitHandler = (e) => {
@@ -55,8 +52,33 @@ function Profile() {
                         </div>)
 
                 }
+            </section>
 
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Paid</th>
+                            <th>Delivered</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userOrders && userOrders.map((order) => (
+                            <tr>
+                                <td>{order._id}</td>
+                                <td>{order.updatedAt.substring(0, 10)}</td>
+                                <td>{order.totalPrice}</td>
+                                <td>{order.isPaid ? 'Yes' : 'No'}</td>
+                                <td>In process</td>
+                            </tr>
+                        ))}
 
+                    </tbody>
+                </table>
             </section>
         </>
     );
