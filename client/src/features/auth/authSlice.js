@@ -56,8 +56,6 @@ export const update = createAsyncThunk(
     async (user, thunkAPI) => {
 
         try {
-            console.log('user - auth slice user here');
-            console.log(user);
             return await authService.update(user);
         } catch (err) {
             const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();

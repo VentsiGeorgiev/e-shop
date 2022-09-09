@@ -23,6 +23,9 @@ app.use('/api/products', require('./routes/products'));
 app.use('/api/users', require('./routes/user'));
 app.use('/api/orders', require('./routes/order'));
 
+
+app.get('/api/config/paypal', (req, res) => res.json(process.env.PAYPAL_CLIENT_ID));
+
 app.use(notFound);
 app.use(errorHandler);
 

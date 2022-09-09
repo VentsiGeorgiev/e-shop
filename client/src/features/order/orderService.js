@@ -19,9 +19,19 @@ const getOrderById = async (id) => {
 
 };
 
+// Pay order
+const payOrder = async (id) => {
+
+    const result = await request(`${API_URL}/${id}/pay`, createOptions('put',));
+
+    return result;
+
+};
+
 const orderService = {
     orderCreate,
-    getOrderById
+    getOrderById,
+    payOrder
 };
 
 export default orderService;

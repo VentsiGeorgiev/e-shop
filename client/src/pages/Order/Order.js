@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Message from '../../components/Message/Message';
 import Spinner from '../../components/Spinner/Spinner';
-import { getOrderDetails } from '../../features/order/orderSlice';
+import { getOrderDetails, payOrder } from '../../features/order/orderSlice';
 
 function Order() {
 
@@ -14,8 +14,38 @@ function Order() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+
+        // const addPayPalScript = async () => {
+        //     try {
+        //         const res = await fetch('/api/config/paypal');
+        //         const clientId = await res.json();
+
+        //         const script = document.createElement('script');
+        //         script.type = 'text/javascript';
+        //         script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+        //         script.async = true;
+        //         script.onload = () => {
+        //             setSdkReady(true);
+        //         };
+        //         document.body.appendChild(script);
+
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+
+        // };
+        // addPayPalScript();
+
+
         dispatch(getOrderDetails(orderId));
+
     }, [dispatch, orderId]);
+
+    const completeOrder = (e) => {
+        e.preventDefault();
+        console.log('complete order');
+        dispatch(payOrder(orderId));
+    };
 
     if (isLoading) {
         return <Spinner />;
@@ -40,6 +70,12 @@ function Order() {
                         </span>}
 
                 </div>
+                {
+                    orderDetails.isPaid === false ? (
+                        <h4>Not Delivered</h4>
+                    ) : (
+                        <h4>Delivery in proccess</h4>
+                    )}
                 <div>
                     <h2>Payment Method</h2>
                     <p>Method: {orderDetails.paymentMethod}</p>
@@ -73,6 +109,13 @@ function Order() {
                     <div>
                     </div>
                 </section>
+
+                <div>
+                    <hr />
+                    {orderDetails.isPaid === false && <button onClick={completeOrder}> Complete order</button>}
+
+
+                </div>
 
             </section>
 

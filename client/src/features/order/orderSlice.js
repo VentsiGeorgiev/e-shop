@@ -4,6 +4,7 @@ import orderService from './orderService';
 const initialState = {
     order: {},
     orderDetails: { orderItems: [], shippingAddres: {} },
+    orderPay: {},
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -12,7 +13,7 @@ const initialState = {
 
 // Order create
 export const orderCreate = createAsyncThunk(
-    'auth/createOrder',
+    'order/createOrder',
     async (orderData, thunkAPI) => {
         try {
 
@@ -28,11 +29,27 @@ export const orderCreate = createAsyncThunk(
 
 // Get order
 export const getOrderDetails = createAsyncThunk(
-    'auth/orderDetails',
+    'order/orderDetails',
     async (id, thunkAPI) => {
         try {
 
             return await orderService.getOrderById(id);
+
+        } catch (err) {
+            const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
+// Get order
+export const payOrder = createAsyncThunk(
+    'order/payOrder',
+    async (id, thunkAPI) => {
+        try {
+
+            return await orderService.payOrder(id);
 
         } catch (err) {
             const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
@@ -78,6 +95,20 @@ export const orderSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
                 state.orderDetails = null;
+            })
+            .addCase(payOrder.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(payOrder.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.orderPay = action.payload;
+            })
+            .addCase(payOrder.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.orderPay = null;
             });
     }
 });
