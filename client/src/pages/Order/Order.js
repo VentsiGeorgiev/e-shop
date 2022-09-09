@@ -44,6 +44,7 @@ function Order() {
     const completeOrder = (e) => {
         e.preventDefault();
         console.log('complete order');
+        dispatch(getOrderDetails(orderId));
         dispatch(payOrder(orderId));
     };
 

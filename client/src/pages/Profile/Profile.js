@@ -1,15 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from '../../features/auth/authSlice';
+import { getUserOrders } from '../../features/order/orderSlice';
 
 function Profile() {
 
     const { user } = useSelector((state) => state.auth);
+    const { orders } = useSelector((state) => state.order);
+
+    console.log('orders');
+    console.log(orders);
+    console.log('orders');
 
     const [changeDetails, setChangeDetails] = useState(false);
     const [updatedName, setupdatedName] = useState('');
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getUserOrders());
+    }, []);
 
 
     const onSubmitHandler = (e) => {

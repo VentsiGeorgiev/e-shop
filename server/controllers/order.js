@@ -93,8 +93,24 @@ const updateOrderToPaid = async (req, res) => {
     }
 };
 
+// @desc   Get completed user orders
+// @route  GET /api/orders/myorders
+// @access Private
+const getUserOrders = async (req, res) => {
+    try {
+
+        const orders = await Order.find({ user: req.user._id });
+        res.json(orders);
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).json({ message: err });
+    }
+};
+
 module.exports = {
     addOrderItems,
     getOrderById,
     updateOrderToPaid,
+    getUserOrders
 };

@@ -5,6 +5,7 @@ const initialState = {
     order: {},
     orderDetails: { orderItems: [], shippingAddres: {} },
     orderPay: {},
+    userOrders: [],
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -59,6 +60,22 @@ export const payOrder = createAsyncThunk(
     }
 );
 
+// Get user orders
+export const getUserOrders = createAsyncThunk(
+    'order/userOrders',
+    async (_, thunkAPI) => {
+        try {
+
+            return await orderService.getUserOrders();
+
+        } catch (err) {
+            const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
 
 export const orderSlice = createSlice({
     name: 'order',
@@ -80,7 +97,7 @@ export const orderSlice = createSlice({
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
-                state.order = null;
+                state.order = {};
             })
             .addCase(getOrderDetails.pending, (state) => {
                 state.isLoading = true;
@@ -108,7 +125,21 @@ export const orderSlice = createSlice({
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
-                state.orderPay = null;
+                state.orderPay = {};
+            })
+            .addCase(getUserOrders.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getUserOrders.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.userOrders = action.payload;
+            })
+            .addCase(getUserOrders.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.userOrders = [];
             });
     }
 });
