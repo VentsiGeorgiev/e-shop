@@ -1,5 +1,6 @@
 import { request, createOptions } from '../../hooks/useFetch';
 const API_URL = '/api/orders';
+
 // Order create
 const orderCreate = async (userData) => {
 
@@ -9,8 +10,18 @@ const orderCreate = async (userData) => {
 
 };
 
+// Get order
+const getOrderById = async (id) => {
+
+    const result = await request(`${API_URL}/${id}`);
+
+    return result;
+
+};
+
 const orderService = {
     orderCreate,
+    getOrderById
 };
 
 export default orderService;
