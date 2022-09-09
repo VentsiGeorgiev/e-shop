@@ -1,10 +1,24 @@
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import Checkout from '../../components/Checkout/Checkout';
+import Message from '../../components/Message/Message';
+import { orderCreate } from '../../features/order/orderSlice';
 
 function PlaceOrder() {
 
     const cart = useSelector((state) => state.cart);
+    const { order, isLoading, isError, isSuccess, message } = useSelector((state) => state.order);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isSuccess) {
+            navigate(`/orders/${order._id}`);
+        }
+        // eslint-disable-next-line
+    }, [isSuccess, navigate]);
 
 
     const itemsPrice = cart.cartItems.reduce((acc, curr) => acc + curr.qty * curr.price, 0).toFixed(2);
@@ -15,14 +29,22 @@ function PlaceOrder() {
     const totalPrice = (Number(itemsPrice) + Number(shippingPrice)).toFixed(2);
 
 
-
-
     const placeOrderHandler = () => {
-
+        const orderData = {
+            orderItems: cart.cartItems,
+            shippingAddress: cart.shippingAddress,
+            paymentMethod: cart.paymentMethod,
+            itemsPrice: Number(itemsPrice),
+            shippingPrice: Number(shippingPrice),
+            totalPrice: Number(totalPrice),
+        };
+        console.log(orderData);
+        dispatch(orderCreate(orderData));
     };
 
     return (
         <>
+            {isError && <Message text={message} />}
             <Checkout step1 step2 step3 step4 />
             <section>
                 <div>
@@ -40,7 +62,7 @@ function PlaceOrder() {
                 </div>
                 <div>
                     <h2>Order Items</h2>
-                    <p>
+                    <div>
                         {cart.cartItems.length === 0 ? <p>Your Cart Is Empty</p> : (
                             <div>
                                 {cart.cartItems.map((item) => (
@@ -52,7 +74,7 @@ function PlaceOrder() {
                                 ))}
                             </div>
                         )}
-                    </p>
+                    </div>
                 </div>
             </section>
 
