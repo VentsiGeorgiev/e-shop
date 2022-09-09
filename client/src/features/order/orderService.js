@@ -13,7 +13,7 @@ const orderCreate = async (userData) => {
 // Get order
 const getOrderById = async (id) => {
 
-    const result = await request(`${API_URL}/${id}`);
+    const result = await request(`${API_URL}/${id}`, createOptions());
 
     return result;
 

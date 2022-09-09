@@ -10,6 +10,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Shipping from './pages/Shipping/Shipping';
 import Payment from './pages/Payment/Payment';
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
+import Order from './pages/Order/Order';
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route path='/placeorder' element={<PrivateRoute />} >
             <Route path='/placeorder' element={<PlaceOrder />} />
+          </Route>
+          <Route path='/orders/:id' element={<PrivateRoute />} >
+            <Route path='/orders/:id' element={<Order />} />
           </Route>
 
         </Routes>
