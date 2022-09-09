@@ -1,4 +1,5 @@
 const Order = require('../models/Order');
+
 // @desc Create new order
 // @route POST /api/orders
 // @access Private
@@ -37,6 +38,28 @@ const addOrderItems = async (req, res) => {
     }
 };
 
+// @desc   Get order by ID
+// @route  GET /api/orders/:id
+// @access Private
+const getOrderById = async (req, res) => {
+    try {
+
+        const order = await Order.findById(req.params.id).populate('user', 'name email');
+
+        if (order) {
+            res.json(order);
+        } else {
+            res.status(404);
+            throw new Error('Order not found');
+        }
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).json({ message: err });
+    }
+};
+
 module.exports = {
     addOrderItems,
+    getOrderById
 };
