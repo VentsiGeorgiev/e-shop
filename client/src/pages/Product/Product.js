@@ -69,7 +69,7 @@ function Product() {
                     onClick={addToCardHandler}
                     disabled={product.countInStock === 0}
                 >
-                    Add To Card
+                    Add To Cart
                 </button>
             </div>
 

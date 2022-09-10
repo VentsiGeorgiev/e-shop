@@ -56,8 +56,8 @@ function Cart() {
                 ? <h3>Your Cart Is Currently Empty!</h3>
                 : (
                     cartItems.map(item => (
-                        <section>
-                            <div key={item.product}>
+                        <section key={item.product}>
+                            <div>
                                 <Link to={`/products/${item.product}`}>
                                     <img src={item.image} alt={item.name} width={80} height={40} />
                                     <h3>{item.name}</h3>

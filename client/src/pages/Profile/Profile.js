@@ -68,7 +68,7 @@ function Profile() {
                     </thead>
                     <tbody>
                         {userOrders && userOrders.map((order) => (
-                            <tr>
+                            <tr key={order._id}>
                                 <td>{order._id}</td>
                                 <td>{order.updatedAt.substring(0, 10)}</td>
                                 <td>{order.totalPrice}</td>
