@@ -43,9 +43,7 @@ function Product() {
     return (
         <section>
             {isError && <Message text={message} />}
-            <BackButton />
-            <h1>Product 2</h1>
-
+            {/* <BackButton /> */}
             <div>
                 <img src={product.image} alt={product.name} height={400} width={500} />
                 <h2>{product.brand}</h2>
@@ -68,6 +66,7 @@ function Product() {
                 <button
                     onClick={addToCardHandler}
                     disabled={product.countInStock === 0}
+                    className='btn'
                 >
                     Add To Cart
                 </button>

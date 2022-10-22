@@ -5,6 +5,7 @@ import BackButton from '../../components/BackButton/BackButton';
 import Spinner from '../../components/Spinner/Spinner';
 import { addToCart, removeFromCart } from '../../features/cart/cartSlice';
 import { getUserData } from '../../utils/user';
+import styles from './Cart.module.scss';
 
 function Cart() {
 
@@ -48,41 +49,39 @@ function Cart() {
     };
 
     return (
-        <section>
-            <BackButton />
-            <h2>Shopping Cart</h2>
-
+        <section className={styles['cart']}>
             {cartItems.length === 0
-                ? <h3>Your Cart Is Currently Empty!</h3>
+                ? <div className={styles['cart__empty']}>
+                    <h3>Your Cart Is Currently Empty!</h3>
+                </div>
                 : (
                     cartItems.map(item => (
-                        <section key={item.product}>
+                        <div key={item.product}>
+                            <Link to={`/products/${item.product}`}>
+                                <img src={item.image} alt={item.name} width={80} height={40} />
+                                <h3>{item.name}</h3>
+                            </Link>
+                            <span>price: {item.price}</span>
+                            <p>Quantity</p>
+                            <select
+                                value={item.qty}
+                                onChange={(e) => updateQtyHandler(e, item.product)}
+                            >
+                                {[...Array(item.countInStock).keys()]
+                                    .map(x => (<option key={x + 1} value={x + 1}>{x + 1}</option>))
+                                }
+                            </select>
                             <div>
-                                <Link to={`/products/${item.product}`}>
-                                    <img src={item.image} alt={item.name} width={80} height={40} />
-                                    <h3>{item.name}</h3>
-                                </Link>
-                                <span>price: {item.price}</span>
-                                <p>Quantity</p>
-                                <select
-                                    value={item.qty}
-                                    onChange={(e) => updateQtyHandler(e, item.product)}
+                                <button
+                                    onClick={() => removeFromCartHandler(item.product)}
+                                    type='button'
+                                    className='btn'
                                 >
-                                    {[...Array(item.countInStock).keys()]
-                                        .map(x => (<option key={x + 1} value={x + 1}>{x + 1}</option>))
-                                    }
-                                </select>
-                                <div>
-                                    <button
-                                        onClick={() => removeFromCartHandler(item.product)}
-                                        type='button'
-                                    >
-                                        Remove Item
-                                    </button>
-                                </div>
-                                <hr />
+                                    Remove Item
+                                </button>
                             </div>
-                        </section>
+                            <hr />
+                        </div>
                     ))
                 )
             }
@@ -104,8 +103,9 @@ function Cart() {
                             type='button'
                             disabled={cartItems.length === 0}
                             onClick={checkoutHandler}
+                            className='btn'
                         >
-                            Proceed To Ckeckout
+                            Proceed To Checkout
                         </button>
 
                     </div>

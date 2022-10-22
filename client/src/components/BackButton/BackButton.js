@@ -5,7 +5,7 @@ import styles from './BackButton.module.scss';
 const BackButton = () => {
     const navigate = useNavigate();
     return (
-        <button className={styles['back-btn']} onClick={() => navigate(-1)}>
+        <button className='btn' onClick={() => navigate(-1)}>
             <FaArrowCircleLeft className={styles.icon} /> Back
         </button>
     );
