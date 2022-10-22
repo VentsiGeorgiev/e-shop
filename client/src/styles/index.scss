@@ -46,11 +46,11 @@ a {
     color: $white;
     background: $primary-500;
     border: transparent;
-    border-radius: var(--borderRadius);
-    letter-spacing: var(--letterSpacing);
+    border-radius: $borderRadius;
+    letter-spacing: $letterSpacing;
     padding: 0.2rem 0.5rem;
-    box-shadow: var(--shadow-2);
-    transition: var(--transition);
+    box-shadow: $shadow-2;
+    transition: $transition;
     text-transform: capitalize;
     display: inline-block;
 }

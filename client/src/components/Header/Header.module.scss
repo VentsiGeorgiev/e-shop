@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .header {
     background-color: #1e1e26;
     padding: 14px 18px;
@@ -17,5 +19,25 @@
             margin-left: 10px;
             color: #b5aec4;
         }
+
+        &__icon {
+            color: $white;
+            font-size: 1.2rem;
+        }
+
+        &__links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        &__links li {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
+}
+
+.logout-btn {
+    margin-left: 1rem;
 }
