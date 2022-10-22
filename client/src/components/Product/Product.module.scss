@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+
+.product {
+    border: 1px solid $primary-50;
+    padding: 10px;
+
+    &__img {
+        width: 180px;
+        height: 120px;
+        object-fit: cover;
+        margin-bottom: 1rem;
+    }
+
+    &:hover {
+        box-shadow: $shadow-3;
+        scale: 1.01;
+    }
+
+    &__price {
+        font-weight: 600;
+    }
+}

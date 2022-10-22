@@ -32,14 +32,12 @@ function Home() {
         <>
             {isError && <Message text={message} />}
             <section>
-                <h1>Welcome to e-Shop</h1>
-                <h2>Latest Products</h2>
+                <h3>Latest Products</h3>
                 <section className={style.products}>
                     {products.map((product) => (
                         <Product key={product._id} product={product} />
                     ))}
                 </section>
-
             </section>
         </>
     );

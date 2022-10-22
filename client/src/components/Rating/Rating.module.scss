@@ -1,3 +1,13 @@
+@import '../../styles/variables.scss';
+
 .rating {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    &__list {
+        display: flex;
+    }
+    &__star {
+        color: $yellow;
+    }
 }

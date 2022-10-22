@@ -1,5 +1,20 @@
+@import '../../styles/variables.scss';
+
 .products {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+    place-items: center;
+}
+
+@media screen and (min-width: 768px) {
+    .products {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .products {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }

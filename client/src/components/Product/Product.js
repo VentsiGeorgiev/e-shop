@@ -1,18 +1,21 @@
 import { Link } from 'react-router-dom';
 import Rating from '../Rating/Rating';
+import styles from './Product.module.scss';
 
 function Product({ product }) {
+
+    console.log('here');
+    console.log(product);
+
     return (
-        <section>
+        <div className={styles['product']}>
             <Link to={`/products/${product._id}`}>
-                <div>
-                    <img src={product.image} alt={product.name} height={240} width={250} />
-                    <h3>{product.name}</h3>
-                </div>
-                <h4>{product.price}</h4>
+                <img className={styles['product__img']} src={product.image} alt={product.name} />
+                <h4>{product.brand}</h4>
                 <Rating key={product._id} value={product.rating} reviewsCount={product.numReviews} />
+                <h4 className={styles['product__price']}>{product.price}</h4>
             </Link>
-        </section>
+        </div>
     );
 }
 
