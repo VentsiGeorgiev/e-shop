@@ -59,16 +59,9 @@ function Register() {
     return (
         <>
             {isError && <Message text={message} />}
-
             <section>
-                <h2>Register</h2>
-
-                <form>
-
-                </form>
-            </section>
-            <section>
-                <form onSubmit={onSubmitHandler}>
+                <form className='form' onSubmit={onSubmitHandler}>
+                    <h2>Register</h2>
                     <div>
                         <input
                             type="text"
@@ -77,6 +70,7 @@ function Register() {
                             value={name}
                             onChange={onChangeHandler}
                             placeholder="Name"
+                            className='form__input'
                         />
                     </div>
                     <div>
@@ -87,6 +81,7 @@ function Register() {
                             value={email}
                             onChange={onChangeHandler}
                             placeholder="Email"
+                            className='form__input'
                         />
                     </div>
                     <div>
@@ -97,6 +92,7 @@ function Register() {
                             value={password}
                             onChange={onChangeHandler}
                             placeholder="Password"
+                            className='form__input'
                         />
                     </div>
                     <div>
@@ -107,16 +103,14 @@ function Register() {
                             value={repass}
                             onChange={onChangeHandler}
                             placeholder="Confirm password"
+                            className='form__input'
                         />
                     </div>
                     <div>
-                        <button>Register</button>
+                        <button className='btn'>Register</button>
                     </div>
+                    <h3>Already have an account? <Link className='link' to='/sign-in'>Sign in.</Link> </h3>
                 </form>
-            </section>
-
-            <section>
-                <h3>Already Registered? <Link to='/sign-in'>Log in.</Link> </h3>
             </section>
         </>
 

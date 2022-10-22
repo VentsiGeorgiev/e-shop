@@ -33,7 +33,7 @@ function Header() {
                                     ? (
                                         <>
                                             <NavLink className={styles.header__navigation__link} to='/profile'>Profile</NavLink>
-                                            <button onClick={onLogout}>Logout</button>
+                                            <button className='btn' onClick={onLogout}>Logout</button>
                                         </>
                                     )
                                     : (<NavLink className={styles.header__navigation__link} to='/sign-in'>Sign In</NavLink>)

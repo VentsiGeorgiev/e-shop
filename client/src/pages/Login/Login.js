@@ -59,16 +59,11 @@ function Login() {
         <>
             {isError && <Message text={message} />}
             <section>
-                <h2>Login</h2>
-
-                <form>
-
-                </form>
-            </section>
-            <section>
-                <form onSubmit={onSubmitHandler}>
+                <form className='form' onSubmit={onSubmitHandler}>
+                    <h2>Login</h2>
                     <div>
                         <input
+                            className='form__input'
                             type="email"
                             name="email"
                             id="email"
@@ -79,6 +74,7 @@ function Login() {
                     </div>
                     <div>
                         <input
+                            className='form__input'
                             type="password"
                             name="password"
                             id="password"
@@ -89,14 +85,13 @@ function Login() {
                     </div>
 
                     <div>
-                        <button>Login</button>
+                        <button className='btn'>Login</button>
                     </div>
+                    <h3>Don't have an account yet? <Link className='link' to='/sign-up'>Create one.</Link> </h3>
                 </form>
+
             </section>
 
-            <section>
-                <h3>New to e-Shop? <Link to='/sign-up'>Create an account.</Link> </h3>
-            </section>
         </>
 
     );
