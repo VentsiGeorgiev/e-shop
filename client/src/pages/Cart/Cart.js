@@ -6,6 +6,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import { addToCart, removeFromCart } from '../../features/cart/cartSlice';
 import { getUserData } from '../../utils/user';
 import styles from './Cart.module.scss';
+import { AiFillDelete } from 'react-icons/ai';
 
 function Cart() {
 
@@ -50,69 +51,77 @@ function Cart() {
 
     return (
         <section className={styles['cart']}>
-            {cartItems.length === 0
-                ? <div className={styles['cart__empty']}>
-                    <h3>Your Cart Is Currently Empty!</h3>
-                </div>
-                : (
-                    cartItems.map(item => (
-                        <div key={item.product}>
-                            <Link to={`/products/${item.product}`}>
-                                <img src={item.image} alt={item.name} width={80} height={40} />
-                                <h3>{item.name}</h3>
-                            </Link>
-                            <span>price: {item.price}</span>
-                            <p>Quantity</p>
-                            <select
-                                value={item.qty}
-                                onChange={(e) => updateQtyHandler(e, item.product)}
-                            >
-                                {[...Array(item.countInStock).keys()]
-                                    .map(x => (<option key={x + 1} value={x + 1}>{x + 1}</option>))
-                                }
-                            </select>
-                            <div>
-                                <button
-                                    onClick={() => removeFromCartHandler(item.product)}
-                                    type='button'
-                                    className='btn'
+            <div>
+                {cartItems.length === 0
+                    ? <div className={styles['cart__empty']}>
+                        <h3>Your Cart Is Currently Empty!</h3>
+                    </div>
+                    : (
+                        cartItems.map(item => (
+                            <div className={styles.item} key={item.product}>
+
+                                <Link to={`/products/${item.product}`}>
+                                    <img className={styles.item__image} src={item.image} alt={item.name} />
+                                </Link>
+
+
+                                <p className={styles.item__name}>{item.name}</p>
+                                <span>price: {item.price}</span>
+                                <p>Quantity</p>
+
+
+                                <select
+                                    value={item.qty}
+                                    onChange={(e) => updateQtyHandler(e, item.product)}
                                 >
-                                    Remove Item
-                                </button>
+                                    {[...Array(item.countInStock).keys()]
+                                        .map(x => (<option key={x + 1} value={x + 1}>{x + 1}</option>))
+                                    }
+                                </select>
+                                <div>
+                                    <button
+                                        onClick={() => removeFromCartHandler(item.product)}
+                                        type='button'
+                                        className='btn'
+                                    >
+                                        <AiFillDelete />
+                                    </button>
+                                </div>
+                                <hr />
                             </div>
-                            <hr />
+                        ))
+                    )
+                }
+            </div>
+
+            <div>
+                {cartItems.length >= 1 && (
+                    <section>
+                        <div>
+                            <h3>Total products: {cartItems.reduce((acc, curr) => acc + curr.qty, 0)}</h3>
+                            <h3>Total price:
+                                {cartItems
+                                    .reduce((acc, curr) => acc + curr.qty * curr.price, 0)
+                                    .toFixed(2)
+                                }
+                            </h3>
                         </div>
-                    ))
-                )
-            }
 
-            {cartItems.length >= 1 && (
-                <section>
-                    <div>
-                        <h3>Total products: {cartItems.reduce((acc, curr) => acc + curr.qty, 0)}</h3>
-                        <h3>Total price:
-                            {cartItems
-                                .reduce((acc, curr) => acc + curr.qty * curr.price, 0)
-                                .toFixed(2)
-                            }
-                        </h3>
-                    </div>
+                        <div>
+                            <button
+                                type='button'
+                                disabled={cartItems.length === 0}
+                                onClick={checkoutHandler}
+                                className='btn'
+                            >
+                                Proceed To Checkout
+                            </button>
 
-                    <div>
-                        <button
-                            type='button'
-                            disabled={cartItems.length === 0}
-                            onClick={checkoutHandler}
-                            className='btn'
-                        >
-                            Proceed To Checkout
-                        </button>
+                        </div>
+                    </section>
+                )}
 
-                    </div>
-                </section>
-            )}
-
-
+            </div>
         </section>
 
     );
