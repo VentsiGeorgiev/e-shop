@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Checkout from '../../components/Checkout/Checkout';
 import Message from '../../components/Message/Message';
 import { orderCreate } from '../../features/order/orderSlice';
+import styles from './PlaceOrder.module.scss';
 
 function PlaceOrder() {
 
@@ -47,49 +48,47 @@ function PlaceOrder() {
             {isError && <Message text={message} />}
             <Checkout step1 step2 step3 step4 />
             <section>
-                <div>
+                <div className={styles.shipping}>
                     <h2>Shipping</h2>
-                    <p>Address:
-                        {cart.shippingAddress.address},
-                        {cart.shippingAddress.city}
-                        {cart.shippingAddress.country}
-                        {cart.shippingAddress.postalCode}
+                    <p className={styles.shipping__address}>Address:
+                        <span>{cart.shippingAddress.address}</span>
+                        <span>{cart.shippingAddress.city}</span>
+                        <span>{cart.shippingAddress.country}</span>
+                        <span>{cart.shippingAddress.postalCode}</span>
                     </p>
                 </div>
-                <div>
+                <div className={styles.method}>
                     <h2>Payment Method</h2>
                     <p>Method: {cart.paymentMethod}</p>
                 </div>
-                <div>
+                <div className={styles.items}>
                     <h2>Order Items</h2>
                     <div>
                         {cart.cartItems.length === 0 ? <p>Your Cart Is Empty</p> : (
-                            <div>
+                            <>
                                 {cart.cartItems.map((item) => (
-                                    <div key={item.product}>
+                                    <div className={styles.items__wrapper} key={item.product}>
                                         <img src={item.image} alt={item.name} width={50} height={50} />
                                         <Link to={`/products/${item.product}`}>{item.name}</Link>
                                         <p>{item.qty} x {item.price} = ${(item.qty * item.price).toFixed(2)}</p>
                                     </div>
                                 ))}
-                            </div>
+                            </>
                         )}
                     </div>
                 </div>
             </section>
 
-            <section>
+            <section className={styles.summary}>
                 <h2>Order Summary</h2>
-                <div>
-                    <h3>Items</h3>
+                <div className={styles.summary__wrapper}>
+                    <h3>Items:</h3>
                     <p>{itemsPrice}</p>
-                </div>
-                <div>
-                    <h3>Shipping</h3>
+
+                    <h3>Shipping Cost:</h3>
                     <p>{shippingPrice}</p>
-                </div>
-                <div>
-                    <h3>Total</h3>
+
+                    <h3>Total:</h3>
                     <p>{totalPrice}</p>
                 </div>
                 <div>
@@ -97,6 +96,7 @@ function PlaceOrder() {
                         type="button"
                         disabled={cart.cartItems.length === 0}
                         onClick={placeOrderHandler}
+                        className='btn'
                     >
                         Place Order
                     </button>

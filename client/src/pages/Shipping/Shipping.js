@@ -39,8 +39,8 @@ function Shipping() {
     return (
         <>
             <Checkout step1 step2 />
-            <h1>Shipping</h1>
-            <form onSubmit={onSubmitHandler}>
+            <form className='form' onSubmit={onSubmitHandler}>
+                <h2>Shipping</h2>
                 <div>
                     <input
                         type="text"
@@ -49,6 +49,7 @@ function Shipping() {
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                         placeholder="Address"
+                        className='form__input'
                     />
                 </div>
                 <div>
@@ -59,6 +60,7 @@ function Shipping() {
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
                         placeholder="City"
+                        className='form__input'
                     />
                 </div>
                 <div>
@@ -69,6 +71,7 @@ function Shipping() {
                         value={postalCode}
                         onChange={(e) => setPostalCode(e.target.value)}
                         placeholder="Postal code"
+                        className='form__input'
                     />
                 </div>
                 <div>
@@ -79,9 +82,10 @@ function Shipping() {
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
                         placeholder="Country"
+                        className='form__input'
                     />
                 </div>
-                <button>Continue</button>
+                <button className='btn'>Continue</button>
             </form>
         </>
 

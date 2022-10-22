@@ -1,0 +1,13 @@
+@import '../../styles/variables.scss';
+
+.checkout {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.active {
+    color: $primary-800;
+    font-weight: bold;
+}

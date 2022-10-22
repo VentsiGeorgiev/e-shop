@@ -32,7 +32,7 @@ function Payment() {
         <>
             <Checkout step1 step2 step3 />
             <h1>Payment Method</h1>
-            <form onSubmit={onSubmitHandler}>
+            <form className='form' onSubmit={onSubmitHandler}>
                 <fieldset>
                     <legend>Select a payment method:</legend>
                     <div>
@@ -63,7 +63,7 @@ function Payment() {
                     </div>
                 </fieldset>
 
-                <button>Continue</button>
+                <button className='btn'>Continue</button>
             </form>
         </>
 

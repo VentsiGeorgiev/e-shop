@@ -1,0 +1,40 @@
+@import '../../styles/variables.scss';
+
+.shipping {
+    padding: 1rem 0.5rem;
+    border: 1px solid $primary-50;
+    margin-bottom: 1rem;
+
+    &__address span {
+        margin-left: 6px;
+    }
+}
+.method {
+    padding: 1rem 0.5rem;
+    border: 1px solid $primary-50;
+    margin-bottom: 1rem;
+}
+
+.items {
+    padding: 1rem 0.5rem;
+    border: 1px solid $primary-50;
+    margin-bottom: 1rem;
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+.summary {
+    padding: 1rem 0.5rem;
+    border: 1px solid $primary-50;
+    margin-bottom: 1rem;
+
+    &__wrapper {
+        display: flex;
+        gap: 0.8rem;
+    }
+}
