@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProduct, reset } from '../../features/product/productSlice';
 import Spinner from '../../components/Spinner/Spinner';
 import Message from '../../components/Message/Message';
+import styles from './Product.module.scss';
 
 
 function Product() {
@@ -41,19 +42,21 @@ function Product() {
     };
 
     return (
-        <section>
+        <section className={styles['product']}>
             {isError && <Message text={message} />}
             {/* <BackButton /> */}
+            <img className={styles['product__image']} src={product.image} alt={product.name} />
             <div>
-                <img src={product.image} alt={product.name} height={400} width={500} />
                 <h2>{product.brand}</h2>
                 <Rating value={product.rating} numReviews={product.numReviews} />
-                <h3>Price: {product.price}</h3>
                 <p>Description: {product.description}</p>
                 <p>{product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}</p>
 
+            </div>
+            <div className={styles['product__add']}>
+                <h3 className={styles['product__add__price']}>Price: {product.price}</h3>
                 {product.countInStock > 0 && (
-                    <div>
+                    <div className={styles['product__quantity']}>
                         <p>Quantity</p>
                         <select value={qty} onChange={(e) => setQty(e.target.value)}>
                             {[...Array(product.countInStock).keys()]
@@ -66,7 +69,7 @@ function Product() {
                 <button
                     onClick={addToCardHandler}
                     disabled={product.countInStock === 0}
-                    className='btn'
+                    className={`${styles['product__add__btn']} btn`}
                 >
                     Add To Cart
                 </button>

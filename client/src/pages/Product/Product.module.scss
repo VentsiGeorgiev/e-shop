@@ -1,0 +1,42 @@
+@import '../../styles/variables.scss';
+
+.product {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    &__image {
+        width: 500px;
+        height: 400px;
+        object-fit: cover;
+    }
+
+    &__add {
+        align-self: start;
+        border: 1px solid $primary-100;
+        padding: 1rem;
+        margin-bottom: 1rem;
+
+        &__price {
+            margin-bottom: 1rem;
+        }
+
+        &__btn {
+            width: 100%;
+            background-color: $black;
+        }
+    }
+
+    &__quantity {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (min-width: 860px) {
+    .product {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+}
