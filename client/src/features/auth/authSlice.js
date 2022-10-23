@@ -60,11 +60,9 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        resetAuth: (state) => {
-            return state = initialState;
-        },
+        resetAuth: () => initialState,
         logout: () => {
-            return localStorage.removeItem('user');
+            localStorage.removeItem('user');
         }
     },
     extraReducers: (builder) => {

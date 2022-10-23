@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.table {
+    padding: 0;
+    border-spacing: 0;
+    width: 100%;
+    text-align: left;
+
+    &__head {
+        color: $white;
+        background-color: $black;
+    }
+
+    &__body tr td {
+        padding: 0.25rem;
+    }
+
+    &__body tr:nth-child(even) {
+        background-color: $primary-50;
+    }
+}
+
+.btn__update {
+    margin-bottom: 1rem;
+}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from '../../features/auth/authSlice';
 import { getUserOrders } from '../../features/order/orderSlice';
+import styles from './Profile.module.scss';
 
 function Profile() {
 
@@ -48,25 +49,25 @@ function Profile() {
                         </form>)
                         : (<div>
                             <h3>profile name: {user.name}</h3>
-                            <button onClick={() => setChangeDetails((prevState) => !prevState)}>Update name</button>
+                            <button className={`btn ${styles['btn__update']}`} onClick={() => setChangeDetails((prevState) => !prevState)}>Update name</button>
                         </div>)
 
                 }
             </section>
 
             <section>
-                <table>
-                    <thead>
+                <h4>Your Orders</h4>
+                <table className={styles.table}>
+                    <thead className={styles.table__head}>
                         <tr>
                             <th>ID</th>
                             <th>Date</th>
                             <th>Total</th>
                             <th>Paid</th>
                             <th>Delivered</th>
-                            <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className={styles.table__body}>
                         {userOrders && userOrders.map((order) => (
                             <tr key={order._id}>
                                 <td>{order._id}</td>
