@@ -13,8 +13,6 @@ const removeItemFromCart = async (id) => {
     return data;
 };
 
-
-
 const cartService = {
     addToCart,
     removeItemFromCart

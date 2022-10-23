@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Message from '../../components/Message/Message';
 import Spinner from '../../components/Spinner/Spinner';
-import { clearCart, reset } from '../../features/cart/cartSlice';
+import { clearCart, resetCart } from '../../features/cart/cartSlice';
 import { getOrderDetails, payOrder } from '../../features/order/orderSlice';
 import styles from './Order.module.scss';
 
@@ -47,7 +47,7 @@ function Order() {
         e.preventDefault();
         dispatch(getOrderDetails(orderId));
         dispatch(payOrder(orderId));
-        dispatch(reset());
+        dispatch(resetCart());
     };
 
     if (isLoading) {

@@ -8,23 +8,22 @@ function Payment() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { shippingAddress } = useSelector((state) => state.cart);
+    const { shippingAddress, paymentMethod } = useSelector((state) => state.cart);
 
     if (!shippingAddress) {
         navigate('/shipping');
     }
 
-    const [paymentMethod, setPaymentMethod] = useState('PayPal');
+    const [payment, setPayment] = useState(paymentMethod);
 
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
 
-        console.log(paymentMethod);
+        console.log(payment);
 
         dispatch(savePaymentMethod(paymentMethod));
         navigate('/placeorder');
-
 
     };
 
@@ -42,9 +41,9 @@ function Payment() {
                             id="PayPal"
                             name="PayPal"
                             value="PayPal"
-                            checked={paymentMethod === 'PayPal'}
+                            checked={payment === 'PayPal'}
                             onChange={(e) => {
-                                setPaymentMethod(e.target.value);
+                                setPayment(e.target.value);
                             }}
                         />
                     </div>
@@ -55,9 +54,9 @@ function Payment() {
                             id="payOnDelivery"
                             name="payOnDelivery"
                             value="Pay On Delivery"
-                            checked={paymentMethod === 'Pay On Delivery'}
+                            checked={payment === 'Pay On Delivery'}
                             onChange={(e) => {
-                                setPaymentMethod(e.target.value);
+                                setPayment(e.target.value);
                             }}
                         />
                     </div>

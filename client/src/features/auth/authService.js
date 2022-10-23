@@ -1,5 +1,5 @@
 import { request, createOptions } from '../../hooks/useFetch';
-import { clearUserData, setUserData } from '../../utils/user';
+import { setUserData } from '../../utils/user';
 const API_URL = '/api/users';
 
 // Register user
@@ -27,10 +27,6 @@ const login = async (userData) => {
     return result;
 };
 
-
-// Logout
-const logout = () => clearUserData('user');
-
 // Update user
 const update = async (user) => {
 
@@ -43,7 +39,6 @@ const update = async (user) => {
 
 const authService = {
     register,
-    logout,
     login,
     update,
 };

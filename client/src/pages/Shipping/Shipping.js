@@ -2,20 +2,16 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Checkout from '../../components/Checkout/Checkout';
-import { addShippingAddress } from '../../features/cart/cartSlice';
+import { addShippingAddress, setShippingAddress } from '../../features/cart/cartSlice';
 
 function Shipping() {
 
     const { shippingAddress } = useSelector((state) => state.cart);
 
-    // const [address, setAddress] = useState(shippingAddress.address);
-    // const [city, setCity] = useState(shippingAddress.city);
-    // const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
-    // const [country, setCountry] = useState(shippingAddress.country);
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [postalCode, setPostalCode] = useState('');
-    const [country, setCountry] = useState('');
+    const [address, setAddress] = useState(shippingAddress.address);
+    const [city, setCity] = useState(shippingAddress.city);
+    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
+    const [country, setCountry] = useState(shippingAddress.country);
 
 
     const dispatch = useDispatch();
@@ -30,8 +26,9 @@ function Shipping() {
             postalCode,
             country
         };
+        dispatch(setShippingAddress(data));
 
-        dispatch(addShippingAddress(data));
+
         navigate('/payment');
 
     };

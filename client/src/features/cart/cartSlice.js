@@ -3,10 +3,12 @@ import cartService from './cartService';
 
 // Get shippingAddress from localStorage
 const address = JSON.parse(localStorage.getItem('shippingAddress'));
+const payment = JSON.parse(localStorage.getItem('paymentMethod'));
 
 const initialState = {
     cartItems: [],
     shippingAddress: address ? address : {},
+    paymentMethod: payment ? payment : '',
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -40,32 +42,21 @@ export const removeFromCart = createAsyncThunk(
     }
 );
 
-export const addShippingAddress = createAsyncThunk(
-    'cart/addShippingAddress',
-    (data, thunkAPI) => {
-        localStorage.setItem('shippingAddress', JSON.stringify(data));
-        return data;
-    }
-);
-
-export const savePaymentMethod = createAsyncThunk(
-    'cart/savePaymentMethod',
-    (data, thunkAPI) => {
-        localStorage.setItem('paymentMethod', JSON.stringify(data));
-        return data;
-    }
-);
-
-export const clearCart = () => {
-    initialState.cartItems = [];
-};
-
-
 export const productSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        reset: (state) => initialState
+        resetCart: (initialState) => initialState,
+        setShippingAddress: (state, action) => {
+            state.shippingAddress = action.payload;
+            localStorage.setItem('shippingAddress', JSON.stringify(action.payload));
+        },
+        savePaymentMethod: (state, action) => {
+            console.log('action.payload ------');
+            console.log(action.payload);
+            state.paymentMethod = action.payload;
+            localStorage.setItem('paymentMethod', JSON.stringify(action.payload));
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -121,19 +112,16 @@ export const productSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
                 state.product = null;
-            })
-            .addCase(addShippingAddress.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.shippingAddress = action.payload;
-            })
-            .addCase(savePaymentMethod.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.paymentMethod = action.payload;
             });
     }
 });
 
-export const { reset } = productSlice.actions;
+export const {
+
+    resetCart,
+    addShippingAddress,
+    setShippingAddress,
+    savePaymentMethod,
+
+} = productSlice.actions;
 export default productSlice.reducer;

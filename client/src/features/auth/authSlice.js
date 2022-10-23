@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { clearUserData } from '../../utils/user';
 import authService from './authService';
 
 // Get user from localStorage
@@ -40,16 +41,6 @@ export const login = createAsyncThunk(
     }
 );
 
-
-
-// Logout user
-export const logout = createAsyncThunk(
-    'auth/logout',
-    async (_, thunkAPI) => {
-        await authService.logout();
-    }
-);
-
 // Update user
 export const update = createAsyncThunk(
     'auth/update',
@@ -65,13 +56,16 @@ export const update = createAsyncThunk(
     }
 );
 
-
-
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        reset: (state) => initialState
+        resetAuth: (state) => {
+            return state = initialState;
+        },
+        logout: () => {
+            return localStorage.removeItem('user');
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -116,12 +110,9 @@ export const authSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
                 state.user = null;
-            })
-            .addCase(logout.fulfilled, (state, action) => {
-                state.user = null;
             });
     }
 });
 
-export const { reset } = authSlice.actions;
+export const { resetAuth, logout } = authSlice.actions;
 export default authSlice.reducer;
