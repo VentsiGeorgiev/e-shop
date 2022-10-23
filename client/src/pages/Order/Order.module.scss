@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+
+.order {
+    padding: 1rem;
+    border: 1px solid $primary-50;
+
+    &__number {
+        font-weight: 600;
+    }
+
+    &__items {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding-bottom: 0.3rem;
+        border-bottom: 1px solid $primary-50;
+        margin-bottom: 1rem;
+    }
+}

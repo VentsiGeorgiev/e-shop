@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Message from '../../components/Message/Message';
 import Spinner from '../../components/Spinner/Spinner';
 import { getOrderDetails, payOrder } from '../../features/order/orderSlice';
+import styles from './Order.module.scss';
 
 function Order() {
 
@@ -57,8 +58,8 @@ function Order() {
             {isError && <Message text={message} />}
 
 
-            <section>
-                <h2>Order {orderDetails._id}</h2>
+            <section className={styles.order}>
+                <h2 className={styles.order__number}>Order #{orderDetails._id}</h2>
                 {orderDetails.user && orderDetails.user.name && <p>Name: {orderDetails.user.name}</p>}
                 {orderDetails.user && orderDetails.user.email && <p>Email: {orderDetails.user.email}</p>}
                 <div>
@@ -85,7 +86,7 @@ function Order() {
                 <div>
                     <h2>Order items</h2>
                     {orderDetails.orderItems.map((item) => (
-                        <div key={item.product}>
+                        <div className={styles.order__items} key={item.product}>
                             <img src={item.image} alt={item.name} width={50} height={50} />
                             <Link to={`/products/${item.product}`}>{item.name}</Link>
                             <p>{item.qty} x {item.price} = ${(item.qty * item.price).toFixed(2)}</p>
@@ -96,26 +97,14 @@ function Order() {
                 <section>
                     <h2>Order Summary</h2>
                     <div>
-                        <h3>Items</h3>
-                        <p>{orderDetails.totalPrice}</p>
-                    </div>
-                    <div>
-                        <h3>Shipping</h3>
-                        <p>{orderDetails.shippingPrice}</p>
-                    </div>
-                    <div>
-                        <h3>Total</h3>
-                        <p>{orderDetails.totalPrice}</p>
-                    </div>
-                    <div>
+                        <p><span>Items Price:</span> {orderDetails.totalPrice}</p>
+                        <p><span>Shipping:</span> {orderDetails.shippingPrice}</p>
+                        <p><span>Total Price:</span> {orderDetails.totalPrice}</p>
                     </div>
                 </section>
 
                 <div>
-                    <hr />
                     {orderDetails.isPaid === false && <button onClick={completeOrder}> Complete order</button>}
-
-
                 </div>
 
             </section>
