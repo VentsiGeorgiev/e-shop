@@ -39,7 +39,6 @@ function PlaceOrder() {
             shippingPrice: Number(shippingPrice),
             totalPrice: Number(totalPrice),
         };
-        console.log(orderData);
         dispatch(orderCreate(orderData));
     };
 

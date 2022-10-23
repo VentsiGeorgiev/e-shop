@@ -22,8 +22,6 @@ const getProduct = async (req, res) => {
         const id = req.params.id;
         const product = await Product.findById(id);
 
-        console.log(product);
-
         if (product) {
             res.json(product);
         } else {

@@ -12,10 +12,10 @@ const PrivateRoute = () => {
 
     if (checkingStatus) {
         return <Spinner />;
+    } else {
+        return loggedIn ? <Outlet /> : navigate(`/sign-in?redirect=${currentPath}`);
     }
 
-    return loggedIn
-        ? <Outlet /> : navigate(`/sign-in?redirect=${currentPath}`);
 
 
 };

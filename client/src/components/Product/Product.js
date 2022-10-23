@@ -4,9 +4,6 @@ import styles from './Product.module.scss';
 
 function Product({ product }) {
 
-    console.log('here');
-    console.log(product);
-
     return (
         <div className={styles['product']}>
             <Link to={`/products/${product._id}`}>

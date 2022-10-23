@@ -16,7 +16,6 @@ function Cart() {
     const params = useParams();
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
-    const user = getUserData();
 
     const id = params.id;
     const qty = Number(searchParams.get('qty'));
@@ -45,8 +44,12 @@ function Cart() {
     };
 
     const checkoutHandler = () => {
-        user ? navigate('/shipping')
-            : navigate('/shipping?redirect=shipping');
+        const user = localStorage.getItem('user');
+        if (user) {
+            navigate('/shipping');
+        } else {
+            navigate('/shipping?redirect=shipping');
+        }
     };
 
     return (

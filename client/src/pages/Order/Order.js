@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Message from '../../components/Message/Message';
 import Spinner from '../../components/Spinner/Spinner';
+import { clearCart, reset } from '../../features/cart/cartSlice';
 import { getOrderDetails, payOrder } from '../../features/order/orderSlice';
 import styles from './Order.module.scss';
 
@@ -44,9 +45,9 @@ function Order() {
 
     const completeOrder = (e) => {
         e.preventDefault();
-        console.log('complete order');
         dispatch(getOrderDetails(orderId));
         dispatch(payOrder(orderId));
+        dispatch(reset());
     };
 
     if (isLoading) {
@@ -104,7 +105,7 @@ function Order() {
                 </section>
 
                 <div>
-                    {orderDetails.isPaid === false && <button onClick={completeOrder}> Complete order</button>}
+                    {orderDetails.isPaid === false && <button className='btn' onClick={completeOrder}> Complete order</button>}
                 </div>
 
             </section>

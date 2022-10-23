@@ -56,6 +56,10 @@ export const savePaymentMethod = createAsyncThunk(
     }
 );
 
+export const clearCart = () => {
+    initialState.cartItems = [];
+};
+
 
 export const productSlice = createSlice({
     name: 'cart',

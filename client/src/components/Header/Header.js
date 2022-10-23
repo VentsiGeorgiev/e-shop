@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../../features/auth/authSlice';
+import { reset as resetCart } from '../../features/cart/cartSlice';
 import styles from './Header.module.scss';
 import { AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai';
 
@@ -13,7 +14,9 @@ function Header() {
     const onLogout = () => {
         dispatch(logout());
         dispatch(reset());
+        dispatch(resetCart());
         navigate('/');
+        localStorage.clear();
     };
 
     return (
