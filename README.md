@@ -2,7 +2,7 @@
 
 e-Shop is the best IT superstore.
 
-### **Live Demo** [Jobster](https://eshop-vg.herokuapp.com/)
+### **Live Demo** [e-Shop](https://eshop-vg.herokuapp.com/)
 
 #### **MERN (Redux Toolkit) Project**
 
